@@ -17,6 +17,7 @@ public:
                 }
                 else if(sum>0){
                     k--;
+                    while(j<k && nums[k]==nums[k+1] && k<n-1) k--; 
                 }
                 else{
                     ans.push_back({nums[i],nums[j],nums[k]});
