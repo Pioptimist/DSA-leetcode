@@ -10,6 +10,7 @@ public:
             if(missing<k){
                 low = mid +1;
             }
+            // else if(missing == k) return arr[mid]-1; wont work dry run on this [2,3,4,9,10]
             else{
                 high = mid -1;
             }
