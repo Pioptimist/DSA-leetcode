@@ -10,17 +10,18 @@ public:
         string result = "";
         
         // Just count and store in result and return
-        for(int i = 0; i<say.length(); i++) {
+        int i =0;
+        while(i<say.length()) {
             
-            int count = 1;
+            int count = 0;
             char ch = say[i];
             
-            while(i < say.length()-1 && say[i] == say[i+1]) {
+            while(i < say.length() && say[i] ==ch) {
                 count++;
                 i++;
             }
             
-            result += to_string(count) + string(1, say[i]);
+            result += to_string(count) + ch;
             
         }
         
