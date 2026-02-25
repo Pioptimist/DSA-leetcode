@@ -7,12 +7,18 @@ public:
         int maxlen = 0;
         while( r < n){
             if(nums[r] == 0 ) zerocnt ++;
-            if(zerocnt > k ){
-                while(nums[l] == 1 ){
-                    l++;
+            // if(zerocnt > k ){
+            //     while(nums[l] == 1 ){
+            //         l++;
+            //     }
+            //     l++;
+            //     zerocnt--;
+            // }
+            while(zerocnt > k){
+                if(nums[l] == 0){
+                   zerocnt--;
                 }
                 l++;
-                zerocnt--;
             }
             
             if(zerocnt <= k ){
