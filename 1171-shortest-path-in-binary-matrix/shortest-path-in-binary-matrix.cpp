@@ -8,7 +8,8 @@ public:
         vector<vector<int>> vis(n, vector<int>(n,0));
         q.push({0,0,1});
         vis[0][0] = 1;
-       
+        int dir[8][2] = {{1,0}, {-1,0}, {0,-1}, {0,1}, {1,-1}, {1,1}, {-1,-1}, {-1,1}};
+        
         while(!q.empty()){
             vector<int> vec = q.front();
             q.pop();
@@ -18,7 +19,7 @@ public:
             int step = vec[2];
             if(r == n-1 && c==n-1) return step;
 
-            int dir[8][2] = {{1,0}, {-1,0}, {0,-1}, {0,1}, {1,-1}, {1,1}, {-1,-1}, {-1,1}};
+            
             for(int d =0; d<8; d++){
                 int newr = r + dir[d][0];
                 int newc = c + dir[d][1];
