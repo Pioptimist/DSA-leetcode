@@ -37,7 +37,8 @@
 //         return res;
         
 //     }
-// };
+// };  my own recursive way is above where we try to get the bestSum by calc currsum for every subarr we take , when we update the bestSum we store the current ans array into the res array to make sure we get the indices which is our ans
+// , too much tc , so we try to memoize a recursive way of finding bestSum st the bestSum is max sum of three non overlapping subarr with k elements in each subarr and then we try to reconstruct the path to get the starting indices. we know that while finding the bestsum , we only take those elements which are in the optimal ans , so we backtrack not in the traiditional way but for every elemnt in the nums , we calc best sum from taking it and notTaking it , the one with more bestsum is the one we take , so say notT>take , we skip the curr elemtn and if take>notT , we take that element into our res array. one big ques is , how do we know this method of finding bestSum will return the correct indices whch is the ans in one single while trav? this occurs bcz the recursive way of finding bestSum works such a way that it forms the bestSum by skipping and not skipping elemnts , so essentially we are going backwards . 
 
 class Solution {
 public:
@@ -66,7 +67,7 @@ public:
     vector<int> maxSumOfThreeSubarrays(vector<int>& nums, int k) {
         n = nums.size();
 
-        // 🔥 Step 1: precompute subarray sums
+        // Step 1: precompute subarray sums
         sub.assign(n, 0);
         int windowSum = 0;
 
@@ -76,11 +77,11 @@ public:
             if(i >= k-1) sub[i-k+1] = windowSum;
         }
 
-        // 🔥 Step 2: DP
+        // Step 2: DP
         dp.assign(n, vector<int>(4, -1));
         f(0, 0, k);
 
-        // 🔥 Step 3: backtracking to get indices
+        // Step 3: backtracking to get indices
         vector<int> res;
         int i = 0, cnt = 0;
 
