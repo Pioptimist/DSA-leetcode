@@ -1,6 +1,6 @@
 class Solution {
 public:
-
+    unordered_map<string , int> mp;
     bool check(string &newstr){
         vector<int> freq(26,0);
         for(int i = 0 ; i < newstr.size() ; i++){
@@ -14,6 +14,7 @@ public:
             return temp.size();
         }
         
+        if(mp.find(temp) != mp.end()) return mp[temp];
         int take = INT_MIN;
         string newstr = temp + arr[i];
         if(check(newstr)){
@@ -22,7 +23,7 @@ public:
 
         int notTake = f(arr , temp , i +1);
 
-        return max(take , notTake);
+        return mp[temp] = max(take , notTake);
    
     }
     int maxLength(vector<string>& arr) {
