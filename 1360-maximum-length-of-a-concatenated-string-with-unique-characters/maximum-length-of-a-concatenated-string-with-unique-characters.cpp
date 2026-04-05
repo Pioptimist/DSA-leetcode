@@ -13,8 +13,10 @@ public:
         if( i == arr.size()){
             return temp.size();
         }
-        
-        if(mp.find(temp) != mp.end()) return mp[temp];
+        string key = temp + "#" + to_string(i);
+        if(mp.find(key) != mp.end()) return mp[key];
+
+        if(mp.find(key) != mp.end()) return mp[key];
         int take = INT_MIN;
         string newstr = temp + arr[i];
         if(check(newstr)){
@@ -23,7 +25,7 @@ public:
 
         int notTake = f(arr , temp , i +1);
 
-        return mp[temp] = max(take , notTake);
+        return mp[key] = max(take , notTake);
    
     }
     int maxLength(vector<string>& arr) {
