@@ -19,7 +19,7 @@ public:
         while(!q.empty()){
             int n = q.size();
             vector<int> lvl;
-            TreeNode* node = q.front();
+            // TreeNode* node = q.front();
             for(int i =0;i<n; i++){
                 TreeNode* node = q.front();
                 q.pop();
