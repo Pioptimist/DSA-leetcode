@@ -14,22 +14,24 @@ public:
     int f(TreeNode* node , int &maxi){
         if(node == nullptr){
             return 0;
+
         }
 
-        int leftS = max(0 , f(node->left , maxi));
-        int rightS = max(0 , f(node->right , maxi));
+        int lhs = max(0 , f(node->left , maxi));
+        int rhs = max(0 , f(node->right , maxi));
 
-        maxi = max(maxi , node->val + leftS + rightS);
+        maxi = max( maxi , node->val + lhs + rhs);
 
-        return node->val + max(leftS , rightS);
+        return node->val + max(lhs , rhs);
+
     }
     int maxPathSum(TreeNode* root) {
         if(root == nullptr) return 0;
-
         int maxi = INT_MIN;
 
         f(root , maxi);
         return maxi;
+        
         
     }
 };
