@@ -9,54 +9,46 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class NodeValue {
+class Nodevalue{
 public:
-    int minNode, maxNode, currentSum;
+    int maxS;
+    int maxN;
+    int minN;
 
-    NodeValue(int minNode, int maxNode, int currentSum) {
-        this->minNode = minNode;
-        this->maxNode = maxNode;
-        this->currentSum = currentSum;
+    Nodevalue(int maxS ,int maxN ,int minN){
+        this->maxS = maxS;
+        this->maxN = maxN;
+        this->minN = minN;
     }
 };
-
 class Solution {
-    int globalMaxSum = 0;
-private:
-    NodeValue maxSumBSTHelper(TreeNode* root) {
-
-        // An empty tree is a BST of size 0
-        if (!root) {
-            return NodeValue(INT_MAX, INT_MIN, 0);
-        }
-
-        // Get values from left and right subtree
-        auto left = maxSumBSTHelper(root->left);      // both of these return temp obj of type nodeval
-        auto right = maxSumBSTHelper(root->right);
-
-        // If current subtree is BST
-        if (left.maxNode < root->val && root->val < right.minNode) {
-
-            int currentBstSum = left.currentSum + right.currentSum + root->val;
-            
-            // Update the global maximum if this BST's sum is the largest we've seen
-            globalMaxSum = max(globalMaxSum, currentBstSum);
-
-            return NodeValue(
-                min(root->val, left.minNode),
-                max(root->val, right.maxNode),
-                currentBstSum
-            );
-        }
-
-        // If not BST, return invalid range
-        return NodeValue(INT_MIN, INT_MAX, 0);
-    }
-
 public:
+    long long ans=0;
+    Nodevalue f(TreeNode* root){
+        if(!root){
+            //NULL ptr so return [0 , INT_MIN , INT_MX];
+            return Nodevalue(0 , INT_MIN, INT_MAX);
+
+        }
+        Nodevalue left = f(root->left);
+        Nodevalue right = f(root->right);
+
+//rem ans keeps the max sum found so far , our maxS keeps the sum of bst
+
+        if(left.maxN < root->val && root->val < right.minN){
+            ans = max(ans, (long long)root->val + left.maxS + right.maxS);
+
+            return Nodevalue(root->val + left.maxS + right.maxS , 
+            max(root->val , right.maxN),
+            min(root->val , left.minN) );
+        }
+        else{
+            return Nodevalue( 0, INT_MAX , INT_MIN);
+        }
+    }
     int maxSumBST(TreeNode* root) {
-        globalMaxSum = 0; 
-        maxSumBSTHelper(root);
-        return globalMaxSum;
+        f(root);
+        return ans;
+        
     }
 };
