@@ -12,8 +12,8 @@
 class Solution {
 public:
     vector<vector<int>> verticalTraversal(TreeNode* root) {
-        queue<pair<TreeNode* , pair<int , int>>> q;
-        map<int , map<int , multiset<int>>> mp;
+        queue<pair<TreeNode* , pair<int , int>>> q; //node , x , lvl
+        map<int , map<int , multiset<int>>> mp; // x , lvl , nodes val in that x,lvl in multiset bcz allows duplicates and sorted in cases two or more nodes share same (x,lvl)
         vector<vector<int>> res;
         if(root == nullptr) return res;
 
@@ -34,14 +34,14 @@ public:
                 if(node->left != NULL) q.push({node->left , { x - 1 , lvl + 1}});
                 if(node->right != NULL) q.push({node->right , { x + 1 , lvl + 1}});
 
-                mp[x][lvl].insert(node->val);
+                mp[x][lvl].insert(node->val); // using insert bcz its a se
             }
 
         }
-
+//now those nodes which has same x goes in col vector , also map keys are always sorted so thats a plus pt.
         for(auto p : mp){
             vector<int> col;
-            for(auto k : p.second){
+            for(auto k : p.second){  //inner map ke keys y or lvl pe traverse
                 col.insert(col.end(), k.second.begin(), k.second.end());
             }
             res.push_back(col);
