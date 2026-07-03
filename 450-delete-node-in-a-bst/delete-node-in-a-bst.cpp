@@ -11,50 +11,57 @@
  */
 class Solution {
 public:
-    TreeNode* findLastR(TreeNode* root){
-        if(root->right==nullptr) return root;
+    TreeNode* findLR(TreeNode* root){
+        if(root->right == NULL) return root;
 
-        return findLastR(root->right);
+        return findLR(root->right);
     }
 
-    TreeNode* helper(TreeNode* root){
-        if(root->left== NULL) return root->right;
-        else if (root->right == NULL) return root->left;
+    TreeNode* helper(TreeNode* node){
+        if(node->left == NULL){
+            return node->right;
+        }
+        if(node->right == NULL){
+            return node->left;
+        }
 
-        TreeNode* rightC = root->right;
-        TreeNode* lastR = findLastR(root->left);
-        lastR->right = rightC;
+        TreeNode* rightR = node->right;
+        TreeNode* lastR = findLR(node->left);
 
-        return root->left;
+        lastR->right = rightR;
+
+        return node->left;
     }
     TreeNode* deleteNode(TreeNode* root, int key) {
         if(root == NULL) return NULL;
-
-        if(root->val == key) return helper(root);
-
+        if(root->val == key){
+            return helper(root);
+        }
         TreeNode* temp = root;
-        while(root != NULL){
-            if(root->val > key){
-                if(root->left != NULL && root->left->val == key){
-                    root->left = helper(root->left);
-                    break;
+        while(temp != NULL){
+            if(temp->val > key){
+                if(temp->left != NULL && temp->left->val == key){
+                   temp->left = helper(temp->left);
+                   break;
                 }
                 else{
-                    root = root->left;
+                    temp = temp->left;
                 }
+
             }
             else{
-                if(root->right != NULL && root->right->val == key){
-                    root->right = helper(root->right);
-                    break;
+                if(temp->right != NULL && temp->right->val == key){
+                   temp->right = helper(temp->right);
+                   break;
                 }
                 else{
-                    root = root->right;
+                    temp = temp->right;
                 }
-            }
-        }
 
-        return temp;
+            } 
+
+        }
+        return root;
         
     }
 };
