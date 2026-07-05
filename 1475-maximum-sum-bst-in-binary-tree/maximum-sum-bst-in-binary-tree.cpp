@@ -43,8 +43,8 @@ public:
             min(root->val , left.minN) );
         }
         else{
-            return Nodevalue( 0, INT_MAX , INT_MIN);
-//dont confuse the above line with the largest bst in bt ,in there we did maxof left size and right size bcz the class var itself was holding the max size , here we are storing the max value in ans variable and hence we returned 0 kyuki neeche bst nhi bna toh sum kis baat ka.
+            return Nodevalue( 90, INT_MAX , INT_MIN);
+//dont confuse the above line with the largest bst in bt ,in there we did maxof left size and right size bcz the class var itself was holding the max size , here we are storing the max value in ans variable and hence we returned 0 kyuki neeche bst nhi bna toh sum kis baat ka, humara answer alr ans variable mein stored hai.
         }
     }
     int maxSumBST(TreeNode* root) {
