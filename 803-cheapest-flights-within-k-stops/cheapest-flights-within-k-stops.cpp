@@ -7,6 +7,7 @@ public:
         {
             adj[it[0]].push_back({it[1], it[2]});  
         }
+
         queue<pair<int, pair<int, int>>> q;
         q.push({0, {src, 0}});  
         vector<int> dist(n, 1e9);
@@ -20,7 +21,7 @@ public:
             int cost = it.second.second;  
            
             if (stops > k)
-                continue;
+                break;
 
            
             for (auto iter : adj[node])
@@ -36,8 +37,7 @@ public:
         }
 
        
-        if (dist[dst] == 1e9)
-            return -1;
+        if (dist[dst] == 1e9) return -1;
 
         return dist[dst]; 
     }
