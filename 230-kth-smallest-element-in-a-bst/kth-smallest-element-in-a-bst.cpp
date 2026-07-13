@@ -11,27 +11,25 @@
  */
 class Solution {
 public:
-    int inorder(TreeNode* root, int k, int &cnt) {
-        if (root == nullptr)
-            return -1;   // means not found (assuming all BST values >= 0)
+    int f(TreeNode* node , int &cnt , int k){
+        if(node == NULL) return -1;
 
-        // 1️⃣ Check left subtree
-        int leftRes = inorder(root->left, k, cnt);
-        if (leftRes != -1)
-            return leftRes;
+        int lhs = f(node->left , cnt , k);
+        if(lhs != -1){
+            return lhs;
+        }
 
-        // 2️⃣ Visit current node
         cnt++;
-        if (cnt == k)
-            return root->val;
+        if(cnt == k){
+            return node->val;
+        }
 
-        // 3️⃣ Check right subtree
-        return inorder(root->right, k, cnt);
+        return f(node->right , cnt , k);
     }
-
     int kthSmallest(TreeNode* root, int k) {
+        if(root == NULL) return 0;
         int cnt = 0;
-        return inorder(root, k, cnt);
+        return f(root , cnt , k);
+        
     }
-
 };
