@@ -12,7 +12,7 @@
 class Solution {
 public:
     int n;
-
+//traverse the string , remember its preorder so we keep going left first , as soon as our depth 'd' doesnt match number of dash , return null and backtrack and check right till d == dash.   we did the while loop num thing bcz in the string we can have two or three digit numberts too like "123--1-34" ie nodes are 123 , 1, 34 , our way helps to form the num correctly 
     TreeNode* f(string s , int &i , int d){
         if(i >= n) return NULL;
 
