@@ -16,15 +16,15 @@ public:
 
         flatten(root->left);
         flatten(root->right);
-
         TreeNode* tempr = root->right;
         root->right = root->left;
         root->left = NULL;
-        TreeNode* curr = root;
 
+        TreeNode* curr = root;
         while(curr->right){
             curr = curr->right;
         }
+
         curr->right = tempr;
         return;
         
