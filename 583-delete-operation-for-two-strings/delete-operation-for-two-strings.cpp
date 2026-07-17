@@ -1,6 +1,7 @@
 class Solution {
 public:
     int minDistance(string word1, string word2) {
+//idea simle hai , to find min number of operation to convert word1 to word2 , means jo unke beechme longest common subseq hai , humko word1 ko usme convert krna hoga and same for word2 so total operations to do that will be n - lcs + m - lcs.
         int n = word1.size();
         int m = word2.size();
 
