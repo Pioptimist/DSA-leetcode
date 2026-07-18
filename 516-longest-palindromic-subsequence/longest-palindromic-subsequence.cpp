@@ -5,7 +5,7 @@ public:
         if(i == j) return 1;
 
         if(dp[i][j] != -1) return dp[i][j];
-
+// like a palindrome , match the subseq we find 
         if(s[i] == s[j]) {
             return dp[i][j] = 2 + f(i+1, j-1, s, dp);
         }
@@ -23,3 +23,4 @@ public:
         return f(0, n-1, s, dp);
     }
 };
+//f(i,j) means palindromic subseq from f[i....j]
