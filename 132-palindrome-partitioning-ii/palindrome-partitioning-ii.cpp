@@ -2,52 +2,46 @@ class Solution {
 public:
     int n;
     vector<vector<int>> pal;
-    vector<vector<int>> dp;
+    vector<int> dp;
 
-    bool isPalindrome(int i, int j, string &s){ //s[i...j] wala palind hai ki nhi
+    bool isPalindrome(int i, int j, string &s){
         if(i >= j) return true;
-
         if(pal[i][j] != -1)
             return pal[i][j];
 
-        if(s[i] == s[j])
-            return pal[i][j] = isPalindrome(i+1, j-1, s);
-
+        if(s[i] == s[j]) return pal[i][j] = isPalindrome(i+1, j-1, s);
+        
         return pal[i][j] = false;
     }
 
-    // start = beginning of current partition
-    // end   = current position we are extending to
-    int f(int start, int end, string &s){
+    // f(start) = minimum partitions needed from start to end
+    int f(int start, string &s){
 
-        if(end == n){
-            if(isPalindrome(start, end-1, s))
-                return 0;      // last partition is valid
-            return 1e9;
-        }
+        if(start == n)
+            return 0;
 
-        if(dp[start][end] != -1)
-            return dp[start][end];
+        if(dp[start] != -1)
+            return dp[start];
 
         int ans = 1e9;
 
-        // Option 1 : Keep extending current substring
-        ans = f(start, end+1, s);
+        // "Don't cut" is now this loop
+        for(int end = start; end < n; end++){
 
-        // Option 2 : Cut here if current substring is palindrome
-        if(isPalindrome(start, end, s)){
-            ans = min(ans, 1 + f(end+1, end+1, s));
+            if(isPalindrome(start,end,s)){
+                ans = min(ans,1 + f(end+1,s));
+            }
+
         }
 
-        return dp[start][end] = ans;
+        return dp[start] = ans;
     }
 
     int minCut(string s) {
         n = s.size();
+        pal.assign(n,vector<int>(n,-1));
+        dp.assign(n+1,-1);
 
-        pal.assign(n, vector<int>(n, -1));
-        dp.assign(n+1, vector<int>(n+1, -1));
-
-        return f(0,0,s);
+        return f(0,s)-1;
     }
 };
