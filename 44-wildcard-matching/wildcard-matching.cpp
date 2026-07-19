@@ -46,8 +46,36 @@ public:
         n = s.size();
         m = p.size();
 
-        vector<vector<int>> dp(n, vector<int>(m, -1));
+        // vector<vector<int>> dp(n, vector<int>(m, -1));
 
-        return f(0, 0, s, p, dp);
+        // return f(0, 0, s, p, dp);
+
+        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+        dp[n][m] = 1; //dono string out of bound mtlb matched
+
+        for(int j=m-1;j>=0;j--){ //now check for when out of bound for string s , ki baaki ke char in in pattern p is * or not , if * => mark true
+
+           if(p[j]=='*')  dp[n][j]=dp[n][j+1];
+           else  dp[n][j]=false;
+        
+        }
+        for(int i = n-1 ; i >= 0 ; i--){
+            for(int j = m-1 ; j >= 0 ; j--){
+                
+
+                if (s[i] == p[j] || p[j] == '?'){
+                    dp[i][j] = dp[i+1][j+1];
+                }
+
+                else{
+                    if(p[j] == '*'){
+                        dp[i][j] = dp[i][j+1] || dp[i+1][j];
+                    }
+                }
+            }
+        }
+
+        return dp[0][0];
+
     }
 };
