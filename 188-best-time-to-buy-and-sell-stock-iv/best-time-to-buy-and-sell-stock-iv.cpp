@@ -9,7 +9,7 @@ public:
 
         for(int i = n-1; i >= 0; i--){
             for(int b = 0; b <= 1; b++){
-                for(int c = 1; c <= k; c++){   // c starts from 1
+                for(int c = 1; c <= k; c++){   // c starts from 1 bcz 0 is covered in base case
 
                     if(b){
                         dp[i][b][c] = max(
