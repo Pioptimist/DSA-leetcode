@@ -6,7 +6,7 @@ public:
         int profit = 0;
         int diff = 0;
         
-        for(int i =0;i<n;i++){
+        for(int i =1;i<n;i++){
             diff= prices[i]-mini;
             profit = max(profit,diff);
             mini = min(mini,prices[i]);
