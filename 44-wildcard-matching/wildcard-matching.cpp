@@ -12,12 +12,14 @@ public:
         }
 
         if(dp[i][j] != -1) return dp[i][j];
+
         if(s[i] == p[j] || p[j] == '?') {
-            return dp[i][j] = f(i-1, j-1, s, p, dp);
+            return dp[i][j] = f(i-1, j-1, s, p, dp); //match and consume this char
         }
 
         if(p[j] == '*') {
-            return dp[i][j] = f(i-1, j, s, p, dp)  || f(i, j-1, s, p, dp); 
+            return dp[i][j] = f(i-1, j, s, p, dp) //consume just one char
+              || f(i, j-1, s, p, dp); //or keep consuming chars
         }
 
         return dp[i][j] = false;
