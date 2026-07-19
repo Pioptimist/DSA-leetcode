@@ -27,7 +27,7 @@ public:
             }
         }
 
-        return dp[0][1][k];
+        return dp[0][1][k]; //obv dp[0][1][k] bcz we are going reverse so at i = 0 , canb = 1 and  k= k
         
     }
 };
