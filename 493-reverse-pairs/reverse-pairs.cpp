@@ -24,16 +24,16 @@ public:
             temp.push_back(arr[right]);
             right++;
         }
-        for(int i=low; i<high+1;i++){
-            arr[i] = temp[i-low];
+        for(int i=low; i < high+1;i++){
+            arr[i] = temp[i-low];    //get temp elements back to arr after merging
         }
     }
     int cntpairs(vector<int> &arr, int low , int high, int mid){
         int cnt = 0;
         int right = mid +1;
         for (int i = low; i<=mid;i++){
-            while(right<=high && (long long)arr[i]>2LL*arr[right]) right++;
-            cnt = cnt + (right-(mid+1));
+            while(right<=high && (long long)arr[i]  >2LL*arr[right] ) right++;
+            cnt = cnt + (right - (mid+1) );
         }
         return cnt;
     }
@@ -56,3 +56,5 @@ public:
         
     }
 };
+
+//one might think why dont we do this like we did cnt inversion ques and just change that equation to 2*a[right] , its bcz if we do that we will be missing comparing valid elements and not sort them for eg , in this ques 6 !> 2*3 so we skip 6 but 6 > 3 so upon skiping 6 , we wont be sorting 6 and fuck up sort nature of the arrays , that's why we follow this manner of cnting the valid pairs in this question.
