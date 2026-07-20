@@ -7,15 +7,15 @@ public:
         if(n==0) return mergeInt;
         vector<int> tempInt = intervals[0];
         for(auto it : intervals){
-            if(it[0] <= tempInt[1]){
-                tempInt[1] = max(it[1] , tempInt[1]);
+            if(mergeInt.size() ==0 || mergeInt.back()[1] < it[0]){
+                //start a new interval
+                mergeInt.push_back(it);
             }
             else{
-                mergeInt.push_back(tempInt);
-                tempInt = it;
+                mergeInt.back()[1] = max(mergeInt.back()[1] , it[1]); //update the interval if the curr interval start lies inside the last interval's end and then update the end.
             }
         }
-        mergeInt.push_back(tempInt);
+        // mergeInt.push_back(tempInt);
         return mergeInt;
         
     }
