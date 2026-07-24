@@ -31,7 +31,7 @@ public:
         if(indices.size() != 2)
             return false;
         
-        int first  = indices[0];    //if above does return false that means indices is of 2 length only and we swap those two indices and check
+        int first  = indices[0];    //if above does not return false that means indices is of 2 length only and we swap those two indices and check
         int second = indices[1];
         swap(s[first], s[second]);
         return s==goal;
