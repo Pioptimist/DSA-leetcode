@@ -1,6 +1,7 @@
 class Solution {
 public:
     string reverseWords(string s) {
+// rev the whole sentence and then reverse every word in that sentence , keep space in mind
         reverse(s.begin(),s.end());
         int n = s.size();
         string ans = "";
