@@ -1,25 +1,32 @@
 class Solution {
 public:
+//think sliding window
     int lengthOfLongestSubstring(string s) {
         int n = s.size();
-        vector<int> hash(256,-1);
-        int l =0 ,r =0;
-        int maxl = 0;
-        while(r < n){
-            if(hash[s[r]] != -1){
-                if(hash[s[r]] >= l ){
-                    l = hash[s[r]] + 1;
-                }
-            }
-            int len = r - l + 1;
-            maxl = max(len, maxl);
+        if(n == 1) return 1;
 
-            
-            hash[s[r]] = r;
+        vector<int> hash(256 , 0);
+        int maxi = 0;
+
+        int l= 0 , r = 0;
+        while (r < s.size()) {
+            // 1. Add the new character to our window
+            hash[s[r]]++;
+    
+            // 2. If it caused a duplicate, shrink from the left until it's fixed
+            while (hash[s[r]] > 1) {
+                hash[s[l]]--;
+                l++;
+            }
+    
+            // 3. The window is definitely valid here, so update maxi
+            maxi = max(maxi, r - l + 1);
+    
+            // 4. Move right pointer ahead
             r++;
         }
 
-        return maxl;
+        return maxi;
         
     }
 };
