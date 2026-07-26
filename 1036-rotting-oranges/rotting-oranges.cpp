@@ -1,5 +1,6 @@
 class Solution {
 public:
+//multisource bfs  , so put every src in q to start with
     int orangesRotting(vector<vector<int>>& grid) {
         int n = grid.size();
         int m = grid[0].size();
@@ -7,7 +8,7 @@ public:
         queue<pair<int,int>> q;
         int fresh = 0;
 
-        // 1️⃣ Put ALL rotten oranges in queue
+        
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < m; j++) {
                 if(grid[i][j] == 2) {
@@ -25,7 +26,7 @@ public:
         int minutes = 0;
         int dirs[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
 
-        // 2️⃣ Run ONE BFS
+        
         while(!q.empty()) {
             int size = q.size();
             bool rottedThisMinute = false;
@@ -44,7 +45,7 @@ public:
                         grid[nr][nc] = 2;
                         q.push({nr, nc});
                         fresh--;
-                        rottedThisMinute = true;
+                        rottedThisMinute = true; // we only inc time if any orange is rotten
                     }
                 }
             }
@@ -52,7 +53,7 @@ public:
             if(rottedThisMinute) minutes++;
         }
 
-        // 3️⃣ If fresh still remains → impossible
+        
         if(fresh > 0) return -1;
 
         return minutes;
