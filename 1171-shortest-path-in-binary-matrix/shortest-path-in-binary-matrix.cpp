@@ -38,6 +38,7 @@
 
 class Solution {
 public:
+// a simple traversal on undir graph with no edge wt, hence bfs will give shortest path possile
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
 
         int n = grid.size();
@@ -50,7 +51,7 @@ public:
 
         grid[0][0] = 1; // mark visited
 
-        int steps = 1;
+        int steps = 1;  //we start from 1 bcz we cnt this cell as visited cell too so cnt 
 
         int dir[8][2] = {
             {1,0},{-1,0},{0,1},{0,-1},
