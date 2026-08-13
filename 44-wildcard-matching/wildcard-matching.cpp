@@ -13,7 +13,7 @@ public:
         // String finished
         if (i == n) {
             while (j < m) {
-                if (p[j] != '*') return false;
+                if (p[j] != '*') return false; //since string is finished ie only empty string remains and only 8 can match with empty string
                 j++;
             }
             return true;
@@ -29,7 +29,7 @@ public:
         // Star
         if (p[j] == '*') {
 
-            // '*' matches one character
+            // '*' matches one character and can match further chars too , so keep j as it is
             bool take = f(i + 1, j, s, p, dp);
 
             // '*' matches empty string
@@ -38,7 +38,7 @@ public:
             return dp[i][j] = take || skip;
         }
 
-        return dp[i][j] = false;
+        return dp[i][j] = false; //mismatch
     }
 
     bool isMatch(string s, string p) {
