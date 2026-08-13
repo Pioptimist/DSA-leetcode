@@ -25,7 +25,8 @@ public:
         m = t.size();
 
         vector<vector<unsigned int>> dp(n, vector<unsigned int>(m, -1));
-        return f(0, 0, dp, s, t);
+        // return f(0, 0, dp, s, t);
+        return numDistinctTabulation(s , t);
     }
 
 
@@ -39,7 +40,7 @@ public:
             dp[i][m] = 1;
         }
         // Base Case 2: If i == n and j < m (s ran out but t didn't), dp[n][j] is already 0.
-        
+
         for (int i = n - 1; i >= 0; i--) {
             for (int j = m - 1; j >= 0; j--) {
                 if (s[i] == t[j]) {
