@@ -24,20 +24,20 @@ public:
                 i++;
                 j++;
             }
-//ab when a char mismatches , ab humko nhi pta ki inme se konsa char lcs mein hai kyuki possibility is boh are in lcs or one of hem is in lcs or neither of them are.
+//ab when a char mismatches , ab humko nhi pta ki inme se konsa char lcs mein hai kyuki possibility is both are in lcs or one of them is in lcs or neither of them are.
 //so dp[i+1] > dp[i][j+1] mtlb ki agr hum ith char ko na bhi le toh lcs ki len pe itna farak nhi pdta also jth char htane se lcs ki len choti ho rhi , so kya pta jth char in future lcs mein aa jaye but we are damn sure the path we chose , in this path ith char pkka nhiaayega lcs mein , now during printing of lcs we skip this char but in scs , we take this char kyuki read above , lcs ke alawa wale saare chars ko hum lete hai
             else if (dp[i+1][j] > dp[i][j+1]) {
                 ans += s1[i];
                 i++;
             } 
-//same as above but hee we take jth char bcz dp[i][j] > dp[i].
+//same as above but here we take jth char bcz dp[i][j + 1] > dp[i + 1].
             else {
                 ans += s2[j];
                 j++;
             }
         }
 
-        while (i < n) {
+        while (i < n) {   //during comparing , we will see some chars in any of the two string will always remain , those are leftover , just dump them as in
             ans += s1[i];
             i++;
         }
