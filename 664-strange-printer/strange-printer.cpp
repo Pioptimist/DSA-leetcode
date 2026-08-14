@@ -8,7 +8,7 @@ public:
             return 1; //single char ko print krne ka tareeka is only 1
         
         else if(l > r)
-            return 0; //no way to print as empty string now
+            return -1e9; //no way to print as empty string now
         
         if(dp[l][r] != -1)
             return dp[l][r];
@@ -28,7 +28,7 @@ public:
         for(int j = i; j <= r; j++){
             if(s[l] == s[j]){
                 
-                int x = f(i,j-1,s) + f(j,r,s); //here we dont do 1 + .... bcz say we have abcaa , and i is at 1 , j is at 3, now from l to j ie 0 to 3, we can print in one go ie aaa so we might think we should 1 + f(1,2) + f(2,r) but notice carefully agr hum yaha +1 kr dete toh f(2 ,r) mein issi same a ko cnt krke answer aata ie we would have overcounted this aaaa. pehla toh +1 yaha add kiya for aaaa and then we send f(2,r) ie it starts from this last 'a' in aaaa and recounts printing this last a , which is wrong kyuki yeh wala a toh issi aaaa ke sath print ho chuka tha
+                int x = f(i,j-1,s) + f(j,r,s); // two things , imagine we are printing from l to j in one go by s[j] , so if we had abca , we need to fix bc as we just printed aaaa but one thing we do know is this first and last 'a' are correct , we dont need to fix that , hence f(i , j-1) ie tell me min cost to print this section of s[i....j-1] and f(j , r) . next thing is we didnt print anything here , we said agr hum l to j tk same char print krenge toh kya hoga thats why we did no 1 + f() + f() 
                 
                 aage_ka = min(aage_ka, x);
             }
