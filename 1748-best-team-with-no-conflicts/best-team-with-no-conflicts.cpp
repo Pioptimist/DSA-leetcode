@@ -31,7 +31,7 @@ public:
         for(int i = 0; i < n; i++)
             players.push_back({ages[i], scores[i]});
 
-        sort(players.begin(), players.end());  //sort by age bcz now we dont have to wrry about age now 
+        sort(players.begin(), players.end());  //sort by age bcz now we dont have to wrry about age now and this becomes like lis bcz notice if we take a score of player[i] , we can pick the next score if and only if its greater or equal to this past score otherwise a conflict will occur
 
         // vector<vector<int>> dp(n,vector<int>(n + 1, -1));
         // return f(0, -1, players, dp);
