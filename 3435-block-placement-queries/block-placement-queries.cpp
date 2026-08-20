@@ -1,5 +1,6 @@
 class Solution {
-    vector<int> tree;
+    vector<int> tree; // the tree here holds the max gap btw two obstacles lying in 0 to r , can watch codewithmik video or just draw the tree and add obstacles and see how they pan out , make sure to take n for the tree as the max x in the queries
+    
 
     // Point Update
     void update(int i, int l, int r, int idx, int val) { //idx is for the leaf node range , i is to update segT index
