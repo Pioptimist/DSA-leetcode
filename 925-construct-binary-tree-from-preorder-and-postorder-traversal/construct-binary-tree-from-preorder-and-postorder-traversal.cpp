@@ -37,6 +37,7 @@ public:
     }
     TreeNode* constructFromPrePost(vector<int>& preorder, vector<int>& postorder) {
         int n = postorder.size();
+        if(n != preorder.size()) return NULL;
         return f(0 , 0 , n-1 , preorder , postorder); //pres , posts , preend
         
     }
