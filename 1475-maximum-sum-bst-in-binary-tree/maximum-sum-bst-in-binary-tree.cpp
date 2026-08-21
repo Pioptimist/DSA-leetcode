@@ -33,17 +33,17 @@ public:
         Nodevalue left = f(root->left);
         Nodevalue right = f(root->right);
 
-//rem ans keeps the max sum found so far , our sum keeps the sum of bst
+// ans keeps the max sum found so far , our sum keeps the sum of current bst
 
-        if(left.maxN < root->val && root->val < right.minN){
+        if(left.maxN < root->val && root->val < right.minN){ // its a BST
             ans = max(ans, (long long)root->val + left.sum + right.sum);
 
             return Nodevalue(root->val + left.sum + right.sum , 
             max(root->val , right.maxN),
             min(root->val , left.minN) );
         }
-        else{
-            return Nodevalue( 90, INT_MAX , INT_MIN);
+        else{ //not a bst so any tree which includes this is also not a bst
+            return Nodevalue( 0, INT_MAX , INT_MIN);
 //dont confuse the above line with the largest bst in bt ,in there we did maxof left size and right size bcz the class var itself was holding the max size , here we are storing the max value in ans variable and hence we returned 0 kyuki neeche bst nhi bna toh sum kis baat ka, humara answer alr ans variable mein stored hai.
         }
     }
