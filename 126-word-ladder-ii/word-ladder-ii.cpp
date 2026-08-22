@@ -1,65 +1,82 @@
 class Solution {
+    unordered_map<string, int> dist;
+    vector<vector<string>> ans;
+    string bWord;
+
+    void dfs(string word, vector<string>& path) {
+        if (word == bWord) {
+            vector<string> validPath = path;
+            reverse(validPath.begin(), validPath.end());
+            ans.push_back(validPath);
+            return;
+        }
+
+        int currStep = dist[word];
+        int n = word.size();
+
+        for (int i = 0; i < n; i++) {
+            char orig = word[i];
+            for (char c = 'a'; c <= 'z'; c++) {
+                word[i] = c;
+                // Walk strictly uphill: only step to parents whose distance is exactly currStep - 1
+                if (dist.count(word) && dist[word] == currStep - 1) {
+                    path.push_back(word);
+                    dfs(word, path);
+                    path.pop_back();
+                }
+            }
+            word[i] = orig;
+        }
+    }
+
 public:
     vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
-        unordered_map<string, int> depthMap;
-        vector<vector<string>> ans;
-        
-        // BFS to find the shortest path
-        unordered_set<string> wordSet(wordList.begin(), wordList.end());
+        unordered_set<string> dict(wordList.begin(), wordList.end());
+        if (!dict.count(endWord)) return {};
+
+        bWord = beginWord;
         queue<string> q;
         q.push(beginWord);
-        depthMap[beginWord] = 1;
-        wordSet.erase(beginWord);
-        
+        dist[beginWord] = 1;
+        dict.erase(beginWord);
+
+        int n = beginWord.size();
+        bool found = false;
+
+        // BFS: Calculate minimum step distance to each reachable word
         while (!q.empty()) {
             string word = q.front();
             q.pop();
-            int steps = depthMap[word];
-            if (word == endWord) break;
-            for (int i = 0; i < word.size(); ++i) {
-                char original = word[i];
-                for (char ch = 'a'; ch <= 'z'; ++ch) {
-                    word[i] = ch;
-                    if (wordSet.count(word)) {
+
+            int steps = dist[word];
+            if (word == endWord) {
+                found = true;
+                break;
+            }
+
+            string temp = word;
+            for (int i = 0; i < n; i++) {
+                char orig = word[i];
+                for (char c = 'a'; c <= 'z'; c++) {
+                    if (c == orig) continue;
+                    word[i] = c;
+
+                    if (dict.count(word)) {
                         q.push(word);
-                        wordSet.erase(word);
-                        depthMap[word] = steps + 1;
+                        dist[word] = steps + 1;
+                        dict.erase(word); // Safe to erase once recorded in dist
                     }
                 }
-                word[i] = original;
+                word[i] = orig;
             }
         }
-        
-        // DFS to find all paths
-        if (depthMap.count(endWord)) {
-            vector<string> seq = {endWord};
-            dfs(endWord, beginWord, seq, depthMap, ans);
+
+        // DFS Backtracking from endWord to beginWord
+        if (dist.count(endWord)) {
+            vector<string> path = {endWord};
+            dfs(endWord, path);
         }
-        
+
         return ans;
-    }
-    
-private:
-    void dfs(string word, string beginWord, vector<string>& seq, unordered_map<string, int>& depthMap, vector<vector<string>>& ans) {
-        if (word == beginWord) {
-            reverse(seq.begin(), seq.end());
-            ans.push_back(seq);
-            reverse(seq.begin(), seq.end());    //we dont wanna hamper the original seq so return to original
-            return;
-        }
-        
-        int steps = depthMap[word];
-        for (int i = 0; i < word.size(); ++i) {
-            char original = word[i];
-            for (char ch = 'a'; ch <= 'z'; ++ch) {
-                word[i] = ch;
-                if (depthMap.count(word) && depthMap[word] + 1 == steps) {
-                    seq.push_back(word);
-                    dfs(word, beginWord, seq, depthMap, ans);
-                    seq.pop_back();
-                }
-            }
-            word[i] = original;
-        }
     }
 };
