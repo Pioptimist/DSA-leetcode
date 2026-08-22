@@ -22,7 +22,7 @@ public:
 
         // If no fresh oranges
         if(fresh == 0) return 0;
-
+//either use the boolean method or store time with the coord , {{r,c} , t}
         int minutes = 0;
         int dirs[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
 
@@ -45,7 +45,7 @@ public:
                         grid[nr][nc] = 2;
                         q.push({nr, nc});
                         fresh--;
-                        rottedThisMinute = true; // we only inc time if any orange is rotten
+                        rottedThisMinute = true; // we only inc time if any orange is neighbour to a rotten one bcz we are told every min a fresh turns into rotten.
                     }
                 }
             }
