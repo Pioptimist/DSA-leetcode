@@ -21,7 +21,7 @@ public:
             int node = it.second.first;  
             int cost = it.second.second;  
            
-            if (stops == k+1) continue;
+            if (stops == k+1) break;
 
             for (auto iter : adj[node])
             {
