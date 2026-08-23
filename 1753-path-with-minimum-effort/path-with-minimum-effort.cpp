@@ -6,10 +6,10 @@ public:
         
         int r = heights.size();
         int c = heights[0].size();
-        vector<vector<int>> diff(r , vector<int>(c , INT_MAX));
+        vector<vector<int>> diff(r , vector<int>(c , INT_MAX)); //stores min effort to reach a given cell , we store min effort for each cell using djikstra and at the end return min effort of bottom right cell
         diff[0][0] = 0;
 
-        pq.push({0 , {0,0}});
+        pq.push({0 , {0,0}}); // min effort to node at 0,0
         int dir[4][2] = {{0,1} , {1,0}, {-1,0} , {0,-1}};
         while(!pq.empty()){
             auto [d, cell] = pq.top();
@@ -26,8 +26,9 @@ public:
 
                 if(newr >=0 && newr < r && newc>=0 && newc < c){
                     int difference = abs(heights[i][j] - heights[newr][newc]);
-                    int to_upd = max(difference , d);
-                    if(to_upd < diff[newr][newc]){
+                    int to_upd = max(difference , d); //we know in ques min effort is desc as the max diff of any two cells in a given path , thats why we take max of curr cells min effort ie 'd' and diff between curr cell and its adj cell.
+                    
+                    if(to_upd < diff[newr][newc]){ //update min effort table
                         diff[newr][newc] = to_upd;
                         pq.push({to_upd, {newr, newc}});
                     }
