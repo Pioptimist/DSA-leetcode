@@ -1,5 +1,6 @@
 class Solution {
 public:
+//like min efforts in a path , both work on same principle
     int swimInWater(vector<vector<int>>& grid) {
 
         int n = grid.size();
@@ -36,16 +37,16 @@ public:
 
                 if(nr>=0 && nr<n && nc>=0 && nc<n) {
 
-                    int extra = 0;
+                    // int extra = 0;
 
-                    if(grid[nr][nc] > currMax)
-                        extra = grid[nr][nc] - currMax;
+                    // if(grid[nr][nc] > currMax)
+                    //     extra = grid[nr][nc] - currMax;
 
-                    int newCost = currMax + extra;
+                    int newCost = max(currMax , grid[nr][nc]);
 
                     if(newCost < dist[nr][nc]) {
 
-                        dist[nr][nc] = newCost;
+                        dist[nr][nc] = newCost;  //if we can reach nr,nc with lesser max value then upd dist array
                         pq.push({newCost, {nr,nc}});
                     }
                 }
