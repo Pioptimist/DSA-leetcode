@@ -47,11 +47,12 @@ public:
                     mpMails[mail] = i;
                 }
                 else{
-                    dsu.unite(i , mpMails[mail]);
+                    dsu.unite(i , mpMails[mail]); //dono nodes ko union ie mpmails mein ek name store hai and ith is another name , we merge those two into asingle component
                 }
             }
         }
 
+//now according to the ult par , push the mails inside the vector
         vector<vector<string>> mergedMails(n);
         for(auto it : mpMails){
             string mail = it.first;
