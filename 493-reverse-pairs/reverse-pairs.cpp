@@ -1,7 +1,7 @@
 class Solution {
 public:
     void merge(vector<int> &arr,int low ,int high,int mid){
-        int cnt = 0;
+        
         int left = low;
         int right = mid +1;
         vector<int> temp;
@@ -58,3 +58,4 @@ public:
 };
 
 //one might think why dont we do this like we did cnt inversion ques and just change that equation to 2*a[right] , its bcz if we do that we will be missing comparing valid elements and not sort them for eg , in this ques 6 !> 2*3 so we skip 6 but 6 > 3 so upon skiping 6 , we wont be sorting 6 and fuck up sort nature of the arrays , that's why we follow this manner of cnting the valid pairs in this question.
+//hence we created a separate func for it and left merging alone.
