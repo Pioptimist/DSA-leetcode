@@ -1,62 +1,72 @@
 
 class Solution {
 public:
-    void dfs(int &size, int i , int j, vector<vector<int>> &grid,
-         vector<vector<int>> &vis, int n, int id){
+    int dir[4][2] = {{0,1} , {1,0} , {-1,0} , {0,-1}};
+    int dfs(vector<vector<int>>& grid , int i , int j ,int n, int id , vector<vector<int>> &vis){
+
         vis[i][j] = id;
-        size++;
-        int dir[4][2] = {{0,1}, {0,-1}, {1,0}, {-1,0}};
+        int cnt = 1;
+        for(auto d : dir){
+            int nr = i + d[0];
+            int nc = j + d[1];
+            if(nr >= 0 && nr < n && nc >=0 && nc < n && !vis[nr][nc] && grid[nr][nc] == 1){
+                cnt += dfs(grid , nr , nc , n , id , vis);
 
-        for(int d =0;d<4;d++){
-            int nr = i + dir[d][0];
-            int nc = j + dir[d][1];
-
-            if(nr>=0 && nr<n && nc>=0 && nc<n && grid[nr][nc]==1 && !vis[nr][nc]){
-                dfs(size, nr , nc ,grid, vis , n , id);
             }
         }
+        return cnt;
     }
+    //the idea is mark diff conn components of 1s as diff id , and find a single zero , check its surroudings , and add diff components and their sizes to get the answers.
     int largestIsland(vector<vector<int>>& grid) {
         int n = grid.size();
-        vector<vector<int>> vis(n, vector<int>(n,0));
-        unordered_map<int,int> mp;
+        vector<vector<int>> vis(n , vector<int>(n , 0));
         int id = 0;
-        for(int i =0;i<n;i++){
-            for(int j =0;j<n;j++){
-                if(!vis[i][j] && grid[i][j] == 1){
-                    int size = 0;
+
+        map<int , int> mp;
+
+        int maxi = INT_MIN;
+        for(int i = 0 ; i < n ; i ++){
+            for(int j = 0 ; j < n ; j ++){
+                if(grid[i][j] == 1 && !vis[i][j]){
+                
                     id++;
-                    dfs(size, i , j ,grid, vis, n, id);
-                    mp[id] = size;
+                    int cnt = dfs(grid , i , j , n ,id ,vis);
+                    mp[id] = cnt;
+
                 }
             }
         }
-        int ans = INT_MIN;
-        int dir[4][2] = {{0,1}, {0,-1}, {1,0}, {-1,0}};
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                if(grid[i][j]==0){
-                    unordered_set<int> seen;
-                    int curr = 1;
-                    for(int d=0; d<4; d++){
+        
+        if (id == 0) return 1;          // All 0s in grid
+        if (mp[1] == n * n) return n * n; // All 1s in grid
 
-                        int nr = i + dir[d][0];
-                        int nc = j + dir[d][1];
+        //all components containing 1s are marked and diff components have diff id
 
-                        if(nr>=0 && nr<n && nc>=0 && nc<n){
-                            int islandId = vis[nr][nc];
-                            if(islandId && seen.count(islandId)==0){
-                                curr += mp[islandId];
-                                seen.insert(islandId);
+        for(int i = 0 ; i < n ; i++){
+            for(int j =0 ; j < n ; j++){
+                if(grid[i][j] == 0) {
+                    set<int> st;
+                    int size = 1 ; //not 0 bcz we flip a 0 to 1 , so need to cnt that too
+                    for(auto d : dir){
+                        int nr = i + d[0];
+                        int nc = j + d[1];
+                        if(nr >= 0 && nr < n && nc >=0 && nc < n && vis[nr][nc]){
+                            // now we know this is a conn component of 1s
+
+                            if(st.find(vis[nr][nc]) == st.end()){
+                                //means abhi tk yeh wala component nhi dekha
+                                size += mp[vis[nr][nc]];
+                                st.insert(vis[nr][nc]);
                             }
                         }
                     }
-                    ans = max(ans,curr);
+
+                    maxi = max(maxi , size);
                 }
             }
         }
-        if(ans == INT_MIN) return n*n;
-        return ans;
+
+        return maxi == 0 ? n * n : maxi;
         
     }
 };
