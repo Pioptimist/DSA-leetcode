@@ -8,8 +8,8 @@ public:
 
         bool notT = f(nums , t , ind - 1, dp);
         bool take = 0;
-        
-        if(t > nums[ind]){
+
+        if(t >= nums[ind]){
             take = f(nums , t - nums[ind] , ind - 1 , dp);
         }
 
