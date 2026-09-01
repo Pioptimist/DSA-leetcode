@@ -24,7 +24,30 @@ public:
         vector<vector<int>> dp(n+1 , vector<int>(t/2 + 1 , -1));
         if(t % 2 != 0) return false;  //if sum is odd , cant divide in 2 halves
 
-        return f(nums , t/2 , n-1 , dp);
+        // return f(nums , t/2 , n-1 , dp);
+
+        vector<bool> prev(t/2 + 1 , 0) , curr(t/2 + 1 , 0);
+// we can see in our state that we only depend upon i - 1 , ie in bottom up dp , the prev row , so instead of 2d vector , we can keep two 1d vectors only
+        prev[0] = 1;  
+        curr[0] = 1;  // for target 0 , any case is gonna be true
+        if (nums[0] <= t/2) {
+            prev[nums[0]] = 1;
+        }
+
+        for(int i = 1 ; i < n ; i++){
+            for(int j = 1 ; j <= t/2 ; j++){  // j is for the target
+                bool notT = prev[j];
+                bool take = false;
+                if(nums[i] <= j){
+                    take = prev[j - nums[i]];
+                }
+
+                curr[j] = take | notT;
+            }
+            prev = curr;
+        }
+
+        return curr[t/2];
         
     }
 };
