@@ -1,5 +1,6 @@
 class Solution {
 public:
+//the O(n3) solution thru recursion 
 //     int n;
 //     vector<int> nums;
 //     unordered_map<string, int> dp;
@@ -76,7 +77,7 @@ public:
                 
                 int diff    = nums[i] - nums[j] + 500; //to avoid negative diff
                 
-                dp[i][diff] = dp[j][diff] > 0 ? dp[j][diff] + 1 : 2;
+                dp[i][diff] = max(dp[i][diff] , dp[j][diff] > 0 ? dp[j][diff] + 1 : 2);
 //the above condition means if diff = 0 , means initial state and we havent taken two elements yet , so we take the jth and this ith , update ith to 2 , otherwise if diff > 0 then an ap already exist with a diff , so just like LIS , update the length
                 result = max(result, dp[i][diff]);
             }
