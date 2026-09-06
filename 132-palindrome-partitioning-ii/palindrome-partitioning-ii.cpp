@@ -50,6 +50,7 @@
 
 class Solution {
 public:
+//the idea for this idea is to expand from the centre of palindrome , and to do that we travel from left to right and store the min partition the string  0...i-1 in dp[i] , now suppose a substring we find is a palindrome ,so to store its length ie dp[right + 1] , we look at dp[left] and do a +1 bcz we are making another partition , for eg suppose xxxABAyyyy (x and y are abitrary) and left is at A and right is Y , we know this is a palindrome , so we do dp[right + 1] = dp[left] + 1, ie we are saying min partition upto left-1 and add 1 bcz of this palindrome.
     int minCut(string s) {
         int n = s.size();
         
@@ -57,9 +58,7 @@ public:
         vector<int> dp(n + 1);
         
         // Base case initialization: 
-        // Max cuts for a string of length 'i' is 'i - 1' (cutting every single character)
-        // dp[0] = -1 is a mathematical trick so that when a palindrome starts at index 0, 
-        // the formula dp[left] + 1 becomes -1 + 1 = 0 cuts!
+        // Max cuts for a string of length 'i' is 'i - 1' (cutting every single character) hence we are storing that here as a start , dp[0] means cut needed for string of length 0 , here we are storing -1 bcz suppose the whole string is a palindrome then we say    dp[0] + 1 = 0 cuts needed for that string
         for (int i = 0; i <= n; i++) {
             dp[i] = i - 1;
         }
@@ -68,8 +67,9 @@ public:
             // 1. Expand odd-length palindromes (center is a single character)
             int left = i, right = i;
             while (left >= 0 && right < n && s[left] == s[right]) {
-                // Since s[left...right] is a palindrome, the cuts needed for the string up to 'right' 
-                // is the cuts needed up to 'left-1' PLUS one more cut after it.
+                // Since s[left...right] is a palindrome, now the cuts needed for the string s[0....left - 1] = dp[left] , since s[l....r] is a palindrome we can the total partiontion including s[l....r] is dp[left] + 1 
+                // now why dp[right + 1] ? bcz we know s[l....r] is a palind so min cuts till index r is dp[r + 1] , therefore we compare dp[r] with dp[l] + 1.
+                
                 dp[right + 1] = min(dp[right + 1], dp[left] + 1);
                 left--;
                 right++;
