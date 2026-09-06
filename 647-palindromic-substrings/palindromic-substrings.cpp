@@ -1,5 +1,6 @@
 class Solution {
 public:
+//logic is try every char as centre for palindrome in the string
     int countSubstrings(string s) {
         int n = s.size();
         int cnt = 0;
@@ -16,7 +17,7 @@ public:
 private:
     int expand(const string& s, int left, int right) {
         int local_cnt = 0;
-        
+        //start expanding the palindrome from the centre 
         while (left >= 0 && right < s.size() && s[left] == s[right]) {
             local_cnt++;
             left--;     
