@@ -3,40 +3,33 @@
 //     int n;
 //     vector<vector<int>> pal;
 //     vector<int> dp;
-// //normal partition  , keep making partion and check
-//     bool isPalindrome(int i, int j, string &s){
-//         if(i >= j) return true;
-//         if(pal[i][j] != -1)
-//             return pal[i][j];
 
-//         if(s[i] == s[j]) return pal[i][j] = isPalindrome(i+1, j-1, s);
-
-//         return pal[i][j] = false;
-//     }
-
-//     // f(start) = minimum partitions needed from index start 
-//     int f(int start, string &s){
-
-//         if(start == n)
-//             return 0;
-
-//         if(dp[start] != -1)
-//             return dp[start];
-
+//     // bool isPalin(const string &s){ // too expensive as we are doing s.substr and then this check so overall tc ~ O(n3) , either find every possible palindrome earlier or use recusion with memo for isPalind
+//     //     int i = 0; 
+//     //     int j = s.size() - 1;
+//     //     while(i <=j){
+//     //         if(s[i] != s[j]) return false;
+//     //         i++;
+//     //         j--;
+//     //     }
+//     //     return true;
+//     // }
+//     int f(int i , string &s){
+//         if(i >= n){
+//             return 0; // no partition possible
+//         }
+        
+//         if(dp[i] != -1) return dp[i];
 //         int ans = 1e9;
 
-//         // now we try extending the string till it's a palindrome and if its a palindrome try cutting it and recurse further
-//         for(int end = start; end < n; end++){
-
-//             if(isPalindrome(start,end,s)){ //to us the answer only matters when the current substr is a palindrome otherwise no valid answer
-//                 ans = min(ans,1 + f(end+1,s));
+//         for(int end = i ; end < n ; end++){
+//             if(isPalin(s.substr(i , end - i + 1 ))){
+//                 ans = min(ans , 1 + f(end+1 , s));
 //             }
-
 //         }
 
-//         return dp[start] = ans;
+//         return dp[i] = ans;
 //     }
-
 //     int minCut(string s) {
 //         n = s.size();
 //         pal.assign(n,vector<int>(n,-1));
@@ -88,3 +81,6 @@ public:
         return dp[n];
     }
 };
+
+
+// we will many a times see this error  error: non-const lvalue reference to type 'basic_string<...>' cannot bind to a temporary of type 'basic_string<...>' => it simply means string &s will take a normal modificable string but thing is s.substr returns a temp string obj which we cannot modify hence the compiler throws an error saying use const or remove & as we cant modify the substr .
