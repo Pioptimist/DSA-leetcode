@@ -10,18 +10,24 @@
 
 class Solution {
 public:
+// jis pt pe do alg alg side jana pde , that same node is lca
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         if(root == NULL) return NULL;
 
-        int curr = root->val;
-        if(curr < p->val && curr < q->val){
-            return lowestCommonAncestor(root->right, p , q);
-        }
-        if(curr > p->val && curr > q->val){
-            return lowestCommonAncestor(root->left, p , q);
+        while(root){
+            if(root->val > p->val && root->val > q->val){
+                root = root->left;
+            }
+            else if(root->val < p->val && root->val < q->val){
+                root = root->right;
+            }
+            else{
+                return root;
+            }
         }
 
-        return root;
-        
+        return NULL;
+
+
     }
 };
