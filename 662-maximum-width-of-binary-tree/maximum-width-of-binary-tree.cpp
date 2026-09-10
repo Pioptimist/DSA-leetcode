@@ -39,7 +39,7 @@ public:
                 }
 
             }
-            res = max(res , right - left + 1);
+            res = max(res , right - left + 1); // max out of each lvl
         }
         return res;
         
