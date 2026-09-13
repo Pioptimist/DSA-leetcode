@@ -10,8 +10,8 @@ public:
         
         priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
         
-        int cityno,mincitycount=1e9;
-        
+        int cityno , mincitycount=1e9;
+//use djikstra for each city and keep a cnt of dist of cities in each traversal which are <= distThreshold
         for(int i=0;i<n;i++)
         {
             vector<int> dist(n,1e9);
@@ -36,10 +36,9 @@ public:
             int count=0;
             for(int j=0;j<n;j++)
             {
-                if(dist[j]<=distanceThreshold)
-                    count++;
+                if(dist[j]<=distanceThreshold) count++;
             }
-            if(count<=mincitycount)
+            if(count<=mincitycount) //its <= bcz even if cnt is same as mincitycnt , we want to return the city with greatest number
             {
                 mincitycount=count;
                 cityno = i;
