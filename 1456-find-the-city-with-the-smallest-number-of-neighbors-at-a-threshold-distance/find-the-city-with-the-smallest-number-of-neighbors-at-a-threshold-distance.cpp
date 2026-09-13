@@ -22,6 +22,10 @@ public:
                 int distance=pq.top().first;
                 int node=pq.top().second;
                 pq.pop();
+
+                if (distance > distanceThreshold) continue; 
+                if (distance > dist[node]) continue;
+                
                 for(auto it:adj[node])
                 {
                     int adjNode=it.first;
