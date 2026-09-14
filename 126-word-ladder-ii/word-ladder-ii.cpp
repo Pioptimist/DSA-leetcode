@@ -18,6 +18,7 @@ class Solution {
         for (int i = 0; i < n; i++) {
             char orig = word[i];
             for (char c = 'a'; c <= 'z'; c++) {
+                if (c == orig) continue;
                 word[i] = c;
                 // Walk strictly uphill: only step to parents whose distance is exactly currStep - 1
                 if (dist.count(word) && dist[word] == currStep - 1) {
@@ -57,7 +58,7 @@ public:
                 break;
             }
 
-            string temp = word;
+            
             for (int i = 0; i < n; i++) {
 
 
