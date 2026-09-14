@@ -3,6 +3,7 @@ class Solution {
     vector<vector<string>> ans;
     string bWord;
 
+//a simple concept of reverse dfs to avoid extra wastage of time
     void dfs(string word, vector<string>& path) {
         if (word == bWord) {
             vector<string> validPath = path;
@@ -35,8 +36,10 @@ public:
         if (!dict.count(endWord)) return {};
 
         bWord = beginWord;
+
         queue<string> q;
         q.push(beginWord);
+
         dist[beginWord] = 1;
         dict.erase(beginWord);
 
@@ -56,9 +59,13 @@ public:
 
             string temp = word;
             for (int i = 0; i < n; i++) {
+
+
                 char orig = word[i];
                 for (char c = 'a'; c <= 'z'; c++) {
+
                     if (c == orig) continue;
+
                     word[i] = c;
 
                     if (dict.count(word)) {
@@ -70,6 +77,7 @@ public:
                 word[i] = orig;
             }
         }
+        //after this bfs we know this is undir unwt graph so if we reach endword , the dist arr will contain shortest dist to it , so we just go reverse from endword 
 
         // DFS Backtracking from endWord to beginWord
         if (dist.count(endWord)) {
