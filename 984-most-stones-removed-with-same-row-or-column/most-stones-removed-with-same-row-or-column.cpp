@@ -55,14 +55,14 @@ public:
 
             ds.unite(noder, nodec);
             
-            mp[noder] = 1;   //keep overwriting bcz at the end we need only the nodes used which will help us cnt the conn component
+            mp[noder] = 1;   //keep overwriting bcz we want all rows and cols given in ques , so we can calc ult parent later
             mp[nodec] = 1;
         }
 
-        int cnt = 0; //cnt ult parent to cnt number of conn components
+        int cnt = 0; 
 
         for(auto &it : mp){
-            if(ds.find(it.first) == it.first) cnt++;
+            if(ds.find(it.first) == it.first) cnt++;  // cnt ult parent
         }
 
         return stones.size() - cnt;
