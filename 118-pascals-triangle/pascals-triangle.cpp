@@ -7,13 +7,13 @@ public:
         vector<vector<int>> ansr;
 
         vector<int> genrows;
-        for(int r = 1 ; r <= n ; r++){
+        for(int r = 1 ; r <= n ; r++){ // here first row is 1 bcz we do r - c
             ans = 1;
             genrows.clear();
 
             genrows.push_back(ans);  // push the first 1;
 
-            for(int c = 1 ; c < r ; c++){   //start from 2nd col upto the last
+            for(int c = 1 ; c < r ; c++){   //start from 2nd col upto the last , first col is already pushed ie 1 , check above
 
                 ans = ans * (r - c);    // the elements formula
                 ans = ans/c; 
