@@ -1,9 +1,11 @@
 class Solution {
 public:
+//fix i , and like two sum , use two pointers and shift them to maitain the sum
     vector<vector<int>> threeSum(vector<int>& nums) {
         vector<vector<int>> ans;
         int n = nums.size();
         sort(nums.begin(),nums.end());
+        
         for(int i = 0; i<n; i++){
             int j = i+1;
             int k = n-1;
@@ -26,9 +28,6 @@ public:
                     while(j<k && nums[j]==nums[j-1]) j++;
                     while(j<k && nums[k]==nums[k+1] && k<n-1) k--;
                 }
-               
-
-               
                
 
             }
