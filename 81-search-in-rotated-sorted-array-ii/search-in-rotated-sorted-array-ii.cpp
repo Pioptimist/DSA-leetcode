@@ -7,11 +7,13 @@ public:
         while(low<=high){
             int mid =(low+high)/2;
             if(nums[mid]==target)  return true;
+
             if(nums[low]==nums[mid] && nums[mid]==nums[high]){
                 low++;high--;
                 continue;
             }
-            else if(nums[low]<=nums[mid]){
+
+            else if(nums[low]<=nums[mid]){ //left half sorted
                 if(target<=nums[mid] && target>=nums[low]){
                     high = mid-1;
                 }
@@ -19,7 +21,8 @@ public:
                     low = mid +1;
                 }
             }
-            else if (nums[mid]<=nums[high]){
+
+            else if (nums[mid]<=nums[high]){  //right half sorted
                 if(target>=nums[mid] && target<=nums[high]){
                     low = mid +1;
                 }
