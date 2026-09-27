@@ -4,11 +4,14 @@ public:
         int n = nums2.size();
         unordered_map<int,int> NGE;
         stack<int> st;
-        for(int i =n-1;i>=0;i--){
-            while(!st.empty() && nums2[i]>st.top()){
+
+        for(int i =n-1;i>=0;i--){ //start from right
+
+            while(!st.empty() && nums2[i] > st.top()){ //keep going till we find the number greated than num[i]
                 st.pop();
             }
-            if(st.empty()) NGE[nums2[i]]=-1;
+            if(st.empty()) NGE[nums2[i]]=-1; // no nge found
+            
             else{
                 NGE[nums2[i]] = st.top();
             }
