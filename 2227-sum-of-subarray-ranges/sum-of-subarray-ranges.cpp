@@ -1,11 +1,12 @@
 class Solution {
 public:
+// do lc 907 first
     vector<int> findNSE(vector<int>& arr){
         int n = arr.size();
         vector<int> nse(n);
         stack<int> st;
         for(int i = n-1;i>=0;i--){
-            while(!st.empty() && arr[st.top()]>arr[i]){    //here we removed st.top()>= the equal to bcz then nse gives next smaller or equal to element to resolve the duplicate elements in arr edge case
+            while(!st.empty() && arr[st.top()]>arr[i]){    //here in st.top()>= we removed the equals to bcz then nse gives next smaller or equal to element to resolve the duplicate elements in arr edge case
                 st.pop();
             }
             nse[i] = st.empty() ? n : st.top();
@@ -47,6 +48,7 @@ public:
         stack<int> st;
         for (int i = 0; i < n; ++i) {
             while (!st.empty() && arr[st.top()] <= arr[i]) st.pop();
+
             pge[i] = st.empty() ? -1 : st.top();
             st.push(i);
         }
@@ -60,6 +62,7 @@ public:
         int n = arr.size();
         long long totalmin = 0;
         long long totalmax = 0;
+        // curr ele kitne subarrays mein largest hai
         for (int i = 0; i < n; ++i) {
             long long left = i - pse[i];         
             long long right = nse[i] - i;        
@@ -67,7 +70,7 @@ public:
             contrib = (contrib * (long long)arr[i]);
             totalmin = (totalmin + contrib);
         }
-
+        // curr ele kitne subarrays mein smallest hai
         for (int i = 0; i < n; ++i) {
             long long left = i - pge[i];         
             long long right = nge[i] - i;        
