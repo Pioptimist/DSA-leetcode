@@ -1,6 +1,6 @@
 class LRUCache {
   public:
-    class node {
+    class node {  // using a doubly LL
       public:
         int key;
       int val;
@@ -12,10 +12,10 @@ class LRUCache {
       }
     };
 
-  node * head = new node(-1, -1);
+  node * head = new node(-1, -1);   // dummy head and tail nodes
   node * tail = new node(-1, -1);
 
-  int cap;
+  int cap; // capacit of the cache
   unordered_map < int, node * > m;
 
   LRUCache(int capacity) {
@@ -40,12 +40,12 @@ class LRUCache {
   }
 
   int get(int key_) {
-    if (m.find(key_) != m.end()) {
+    if (m.find(key_) != m.end()) { //if the key is there
       node * resnode = m[key_];
       int res = resnode -> val;
       m.erase(key_);
-      deletenode(resnode);
-      addnode(resnode);
+      deletenode(resnode); // delete this node and add it to the very front
+      addnode(resnode); // whenevr we are told to get this key , it is recently used so put it ahead ie next to the head pointer
       m[key_] = head -> next;
       return res;
     }
@@ -54,12 +54,14 @@ class LRUCache {
   }
 
   void put(int key_, int value) {
-    if (m.find(key_) != m.end()) {
+
+    if (m.find(key_) != m.end()) { // if its alr in the cache , update the key and bring it to the top since it's recently used
       node * existingnode = m[key_];
       m.erase(key_);
       deletenode(existingnode);
     }
-    if (m.size() == cap) {
+
+    if (m.size() == cap) {  // if cap is full , then erase the LRU 
       m.erase(tail -> prev -> key);
       deletenode(tail -> prev);
     }
