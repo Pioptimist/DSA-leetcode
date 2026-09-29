@@ -10,6 +10,7 @@
  */
 class Solution {
 public:
+//simple addition on the go
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         ListNode* t1 = l1;
         ListNode* t2 = l2;
