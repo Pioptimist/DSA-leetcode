@@ -17,6 +17,7 @@ public:
         ListNode* odd = head;
         ListNode* even = head->next;
         ListNode* evenH = head->next;
+
         while (even != NULL && even->next != NULL){
             odd->next = odd->next->next;
             even->next = even->next->next;
@@ -24,7 +25,7 @@ public:
             odd = odd->next;
             even = even->next;
         }
-        odd->next = evenH;
+        odd->next = evenH; // last odd ko first even se connect
 
         return head;
     }
