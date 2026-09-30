@@ -14,7 +14,9 @@ public:
         while(fast!=NULL && fast->next!=NULL){
             slow= slow->next;
             fast = fast ->next->next;
-            if(slow==fast){
+
+            if(slow==fast){  
+                // the steps written below  is to find the starting point of the loop
                 slow = head;
                 while(slow!=fast){
                     slow= slow->next;
