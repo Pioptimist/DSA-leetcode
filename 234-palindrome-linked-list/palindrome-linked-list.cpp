@@ -10,11 +10,12 @@
  */
 class Solution {
 public:
+//reverse the half and checck it with the first half
     bool isPalindrome(ListNode* head) {
 
        if (!head || !head->next)  return true;
 
-    // Find middle
+       // Find middle
        ListNode* slow = head;
        ListNode* fast = head;
 
@@ -36,7 +37,7 @@ public:
 
         // Compare
         ListNode* first = head;
-        ListNode* secondHalf = prev;
+        ListNode* secondHalf = prev; // prev is now the head for the second half
 
         while (secondHalf) {
             if (first->val != secondHalf->val)
