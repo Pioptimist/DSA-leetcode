@@ -18,50 +18,43 @@ public:
     }
 
     TreeNode* helper(TreeNode* node){
-        if(node->left == NULL){
-            return node->right;
-        }
-        if(node->right == NULL){
-            return node->left;
-        }
+        if(node->left == NULL) return node->right;
+        if(node->right == NULL) return node->left;
 
-        TreeNode* rightR = node->right;
-        TreeNode* lastR = findLR(node->left);
+        TreeNode* left = node->left;
+        TreeNode* temp = node->right;
+        TreeNode* lastR = findLR(left);
+        lastR->right = temp;
 
-        lastR->right = rightR;
-
-        return node->left;
+        return left;
     }
     TreeNode* deleteNode(TreeNode* root, int key) {
         if(root == NULL) return NULL;
-        if(root->val == key){
-            return helper(root);
-        }
-        TreeNode* temp = root;
-        while(temp != NULL){
-            if(temp->val > key){
-                if(temp->left != NULL && temp->left->val == key){
-                   temp->left = helper(temp->left);
-                   break;
+
+        if(root->val == key) return helper(root);
+
+        TreeNode* curr = root;
+        while(root){
+            if(root->val > key){ // stop at the node befre the key
+                if(root->left != NULL && root->left->val == key){
+                    root->left = helper(root->left);
+                    break;
                 }
                 else{
-                    temp = temp->left;
+                    root = root->left;
+                }
+            }else{
+                if(root->right != NULL && root->right->val == key){
+                    root->right = helper(root->right);
+                    break;
+                }
+                else{
+                    root = root->right;
                 }
 
             }
-            else{
-                if(temp->right != NULL && temp->right->val == key){
-                   temp->right = helper(temp->right);
-                   break;
-                }
-                else{
-                    temp = temp->right;
-                }
-
-            } 
-
         }
-        return root;
-        
+        return curr;
+         
     }
 };
