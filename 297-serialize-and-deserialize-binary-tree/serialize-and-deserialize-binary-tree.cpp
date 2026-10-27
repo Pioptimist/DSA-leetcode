@@ -48,23 +48,29 @@ public:
     q.push(root);
 
     while (!q.empty()) {
-        TreeNode* current = q.front();
+        TreeNode* curr = q.front();
         q.pop();
 
         // LEFT
         getline(ss, str, ',');
         if (str != "#") {
             TreeNode* leftNode = new TreeNode(stoi(str));
-            current->left = leftNode;
+            curr->left = leftNode;
             q.push(leftNode);
+        }
+        else{
+            curr->left = NULL;
         }
 
         // RIGHT
         getline(ss, str, ',');
         if (str != "#") {
             TreeNode* rightNode = new TreeNode(stoi(str));
-            current->right = rightNode;
+            curr->right = rightNode;
             q.push(rightNode);
+        }
+        else{
+            curr->right = NULL;
         }
     }
 
