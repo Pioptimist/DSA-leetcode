@@ -56,7 +56,7 @@ public:
 
             int steps = dist[word];
             if (word == endWord) {
-                found = true;
+               
                 break;
             }
 
