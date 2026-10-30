@@ -1,7 +1,8 @@
 class Solution {
 public:
+ // this is just like surrounded region question
     void dfs(int r, int c, vector<vector<int>>& grid, int n, int m) {
-        grid[r][c] = 0; // "Sink" the land cell directly
+        grid[r][c] = 0; 
 
         int dr[4] = {1, -1, 0, 0};
         int dc[4] = {0, 0, 1, -1};
@@ -20,16 +21,12 @@ public:
         int n = grid.size();
         int m = grid[0].size();
 
-        // Traverse only the First and Last Column
-        for (int i = 0; i < n; i++) {
-            if (grid[i][0] == 1) dfs(i, 0, grid, n, m);
-            if (grid[i][m - 1] == 1) dfs(i, m - 1, grid, n, m);
-        }
-
-        // Traverse only the First and Last Row
-        for (int j = 0; j < m; j++) {
-            if (grid[0][j] == 1) dfs(0, j, grid, n, m);
-            if (grid[n - 1][j] == 1) dfs(n - 1, j, grid, n, m);
+        for(int i = 0 ; i < n ; i++){
+            for(int j = 0 ; j < m ; j++){
+                if(grid[i][j] == 1 && (i == n-1 || i == 0 || j == m-1 || j==0)){
+                    dfs(i , j , grid , n , m); // all the land cells connected to boundary cells will be turned to 0
+                }
+            }
         }
 
         // Count remaining trapped land cells
