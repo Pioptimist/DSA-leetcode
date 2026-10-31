@@ -3,42 +3,38 @@ public:
     //this solution works bcz for every stop we are exploring every possible node thru a simple bfs soo we are exploring every possible path with x stops. keep in mind a simple bfs wont work on weighted graph for edge relaxation , here it is bcz we are treating stops as level , we process stops = 0 , stops = 1 , stops =2... like this and keep updating dist , we will keep coming across same nodes hce we can relax their wt
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
 
-        vector<vector<pair<int,int>>> adj(n);
-        for (auto it : flights)
-        {
-            adj[it[0]].push_back({it[1], it[2]});  
+        vector<vector<pair<int , int>>> adj(n);
+        for(int i = 0 ; i < flights.size() ; i++){
+            adj[flights[i][0]].push_back({flights[i][1] , flights[i][2]});
         }
 
-        queue<pair<int, pair<int, int>>> q;
-        q.push({0, {src, 0}});  
-        vector<int> dist(n, 1e9);
-        dist[src] = 0;  
-        while (!q.empty())
-        {
+        queue<pair<int , pair<int , int>>> q;
+        vector<int> dist( n , 1e9);
+        dist[src] = 0;
+        q.push({0 , {src , 0}}); // stops , node , cost
+        while(!q.empty()){
             auto it = q.front();
             q.pop();
-            int stops = it.first;  
-            int node = it.second.first;  
-            int cost = it.second.second;  
-           
-            if (stops == k+1) break;
+            
+            int stops = it.first;
+            int node = it.second.first;
+            int cost = it.second.second;
 
-            for (auto iter : adj[node])
-            {
-                int adjNode = iter.first; 
-                int edW = iter.second;  
-                if (cost + edW < dist[adjNode] && stops <= k)
-                {
-                    dist[adjNode] = cost + edW;  
-                    q.push({stops + 1, {adjNode, cost + edW}});  
+            if(stops == k+1) break;
+            for(auto it : adj[node]){
+                int v = it.first;
+                int edw = it.second;
+
+                if(cost + edw < dist[v] && stops <=k+1){
+                    dist[v] = cost +  edw;
+                    q.push({stops + 1 , {v , cost + edw}});
                 }
+
             }
         }
+        if( dist[dst] == 1e9) return -1;
 
-       
-        if (dist[dst] == 1e9) return -1;
-
-        return dist[dst]; 
+        return dist[dst];
     }
 };
 
