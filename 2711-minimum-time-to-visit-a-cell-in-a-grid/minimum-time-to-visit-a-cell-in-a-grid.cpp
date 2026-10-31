@@ -44,7 +44,7 @@ public:
                 if (r < 0 || r >= m || c < 0 || c >= n || visited[r][c])
                     continue;
                 
-                if (grid[r][c] <= time+1) {
+                if (grid[r][c] <= time+1) { // agr agle cell ki value time + 1 se kmhai toh seedha jao
                     pq.push({time+1, {r, c}});
                     result[r][c] = time+1;
                     
