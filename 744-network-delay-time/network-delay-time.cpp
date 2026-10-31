@@ -14,9 +14,12 @@ public:
         pq.push({0,k});
         dist[k]=0;
         while(!pq.empty()){
+
             int distance=pq.top().first;
             int node=pq.top().second;
+
             pq.pop();
+            if(distance > dist[node]) continue;
             for(auto it:adj[node]){
                 int adjNode=it.first;
                 int adjWeight=it.second;
