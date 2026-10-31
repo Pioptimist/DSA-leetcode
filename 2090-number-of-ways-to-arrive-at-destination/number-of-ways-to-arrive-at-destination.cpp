@@ -29,9 +29,12 @@ public:
             long long dis = pq.top().first;
             int node = pq.top().second;
             pq.pop();
+            if(dis > dist[node]){
+                continue;
+            }
 
             for(auto &it : adj[node]){
-             int adjNode = it.first;
+                int adjNode = it.first;
                 long long edW = it.second;
 
                 if(dis + edW < dist[adjNode]){
