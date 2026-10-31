@@ -31,8 +31,7 @@ public:
             pq.pop();
 
             for(auto &it : adj[node]){
-
-                int adjNode = it.first;
+             int adjNode = it.first;
                 long long edW = it.second;
 
                 if(dis + edW < dist[adjNode]){
@@ -46,6 +45,7 @@ public:
                 else if(dis + edW == dist[adjNode]){
 
                     ways[adjNode] = (ways[adjNode] + ways[node]) % mod;
+   
                 }
             }
         }
