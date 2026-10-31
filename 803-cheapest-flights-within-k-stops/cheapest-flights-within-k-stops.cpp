@@ -101,7 +101,7 @@ public:
 // Maximum allowed flights = k + 1 (since k stops means k+1 flights),
 // so flights can range from 0 to k+1, requiring k+2 columns.
 
-//since reaching same number with diff number of stops is a dff state hence we do a multi state djikstra in here hence the dist[][k]
+//since reaching same node with diff number of stops is a dff state hence we do a multi state djikstra in here hence the dist[][k]
 
 
 
@@ -114,12 +114,9 @@ public:
 //     int solve(int u, int dst, int stops_left, vector<vector<pair<int, int>>>& adj) {
 //       
 //         if (u == dst) return 0;    // Reached the destination
-
-//         
 //         if (stops_left == 0) return INF; // No more stops/flights allowed
 
 //         if (memo[u][stops_left] != -1) return memo[u][stops_left];
-
 //         int minCost = INF;
 
 //         // Explore all outgoing flights
@@ -133,7 +130,6 @@ public:
 //                 minCost = min(minCost, price + nextCost);
 //             }
 //         }
-
 //         return memo[u][stops_left] = minCost;
 //     }
 
@@ -144,53 +140,11 @@ public:
 //         for (auto& f : flights) {
 //             adj[f[0]].push_back({f[1], f[2]});
 //         }
-
 //         memset(memo, -1, sizeof(memo));
 
 //         // At most k stops means at most (k + 1) edges / flights
 //         int ans = solve(src, dst, k + 1, adj);
-
 //         return (ans >= INF) ? -1 : ans;
 //     }
 // };
 
-//bottoms up :
-// class Solution {
-// public:
-//     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
-//         const int INF = 1e9;
-//         int maxFlights = k + 1;
-
-//         // dp[s][u] = min cost to reach dst from node u using AT MOST s flights
-//         vector<vector<int>> dp(maxFlights + 1, vector<int>(n, INF));
-
-        
-//         for (int s = 0; s <= maxFlights; s++) {
-//             dp[s][dst] = 0; //base case , cost of dist to dist is 0 always
-//         }
-
-        
-//         for (int s = 1; s <= maxFlights; s++) {
-            
-//             for (int u = 0; u < n; u++) {
-//                 if (u == dst) continue;
-
-//                 dp[s][u] = dp[s - 1][u];  //humko atmost s flights bola hai toh hum bol skte hai ki dp[s][u] will be atleast dp[s - 1][u] ie jo s - 1 se ans hai woh s ke liye toh rhega hi , ab aage jake koi better mil gya toh update
-//             }
-
-           
-//             for (const auto& flight : flights) {
-//                 int u = flight[0];
-//                 int v = flight[1];
-//                 int price = flight[2];
-
-//                 if (dp[s - 1][v] != INF) {
-//                     dp[s][u] = min(dp[s][u], price + dp[s - 1][v]);
-//                 }
-//             }
-//         }
-
-        
-//         return dp[maxFlights][src] >= INF ? -1 : dp[maxFlights][src];
-//     }
-// };
