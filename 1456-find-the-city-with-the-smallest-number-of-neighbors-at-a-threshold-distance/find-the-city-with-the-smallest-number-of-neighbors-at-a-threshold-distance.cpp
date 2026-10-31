@@ -1,5 +1,7 @@
 class Solution {
 public:
+
+// can use floyyd warshall for its O(n3) tc as n is small ~100
     int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
         vector<pair<int,int>> adj[n];
         for(auto it:edges)
@@ -25,7 +27,7 @@ public:
 
                 if (distance > distanceThreshold) continue; 
                 if (distance > dist[node]) continue;
-                
+
                 for(auto it:adj[node])
                 {
                     int adjNode=it.first;
