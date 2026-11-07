@@ -17,12 +17,12 @@ public:
     int minimumDifference(vector<int>& nums) {
         int n = nums.size();
         int half = n / 2;
-
+// both arrays has to be of n/2 , ek mein jyada ek mein km not allowed
         vector<int> leftArr(nums.begin(), nums.begin() + half);
         vector<int> rightArr(nums.begin() + half, nums.end());
         vector<vector<int>> left(half + 1), right(half + 1);    //subarr sum ko store
 
-        // generate all subset sums
+        // generate all subset sums of lefthalf in left and right half in right 
         generate(leftArr, 0, 0, 0, left);
         generate(rightArr, 0, 0, 0, right);
 
@@ -36,9 +36,9 @@ public:
 
         int ans = INT_MAX;
 
-        // now we try to form subset 1 and make it sum as close to total/2 as possible , so now we try to pick from left half and the rest from right half and then we add to get sum of subset 1 and then store the diff of (total - 2s1) and return the min out of it
+        // now we try to form subset 1(everything done below is only for one subset , remember that) and make it sum as close to total/2 as possible , so now we try to pick from left half and the rest from right half and then we add to get sum of subset 1 and then store the diff of (total - 2s1) and return the min out of it
 
-        for(int k = 0; k <= half; k++) { //start picking from left
+        for(int k = 0; k <= half; k++) { //start picking from left , k is number of ele we re picking
             for(int x : left[k]) { //say we pick only 1 ele , then we use the possible sum left can give when we only pick 1 element
 
                 int need = total/2 - x; //we need this from right
