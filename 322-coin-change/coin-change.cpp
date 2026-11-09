@@ -19,12 +19,30 @@ public:
     }
     int coinChange(vector<int>& coins, int amount) {
         int n = coins.size();
-        vector<vector<int>> dp(n,vector<int> (amount+1,-1));
+        // vector<vector<int>> dp(n,vector<int> (amount+1,-1));
 
-        long res = f(n-1 , amount , dp , coins);
-        if(res == 1e9) return -1;
+        // long res = f(n-1 , amount , dp , coins);
+        // if(res == 1e9) return -1;
         
-        return res;
+        // return res;
+        // check out striver 0/1 knapsack for 1 d optimisation , here we go forward bcz we are allowed to reuse a coin or state
+        vector<int> dp(amount + 1 , 1e9);
+        for(int t = 0 ; t <= amount ; t++){
+            if(t % coins[0] == 0 && coins[0]!=0) dp[t] = t/coins[0] ;
+        }
+
+        for(int i = 1 ; i < n ; i++){
+            for(int t = 0 ; t <= amount ; t++){
+                int notT = 0 + dp[t];
+                int take = 1e9 ;
+                if(coins[i] <= t && dp[t - coins[i]] != 1e9){
+                    take = 1 + dp[t - coins[i]];
+                }
+
+                dp[t] = min(notT , take);
+            }
+        }
+        return dp[amount] ==1e9 ? -1 : dp[amount];
         
     }
 };
