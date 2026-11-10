@@ -13,7 +13,7 @@ public:
         return dp[i][j] = max(
             f(i+1, j, s, dp),
             f(i, j-1, s, dp)
-        );
+        ); //omit either char and try to find a palindrome 
     }
 
     int longestPalindromeSubseq(string s) {
