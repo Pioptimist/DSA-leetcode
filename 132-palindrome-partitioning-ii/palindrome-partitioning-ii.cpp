@@ -3,8 +3,17 @@
 //     int n;
 //     vector<vector<int>> pal;
 //     vector<int> dp;
+// the below isPalin is too expensive as we are doing s.substr and then this check so overall tc ~ O(n3) , either find every possible palindrome earlier or use recusion with memo for isPalind like this =>
+// bool isPalindrome(int i, int j, string &s){
+// //         if(i >= j) return true;
+// //         if(pal[i][j] != -1)
+// //             return pal[i][j];
 
-//     // bool isPalin(const string &s){ // too expensive as we are doing s.substr and then this check so overall tc ~ O(n3) , either find every possible palindrome earlier or use recusion with memo for isPalind
+// //         if(s[i] == s[j]) return pal[i][j] = isPalindrome(i+1, j-1, s);
+
+// //         return pal[i][j] = false;
+// //     }
+//     // bool isPalin(const string &s){ 
 //     //     int i = 0; 
 //     //     int j = s.size() - 1;
 //     //     while(i <=j){
@@ -61,7 +70,7 @@ public:
             int left = i, right = i;
             while (left >= 0 && right < n && s[left] == s[right]) {
                 // Since s[left...right] is a palindrome, now the cuts needed for the string s[0....left - 1] = dp[left] , since s[l....r] is a palindrome we can the total partiontion including s[l....r] is dp[left] + 1 
-                // now why dp[right + 1] ? bcz we know s[l....r] is a palind so min cuts till index r is dp[r + 1] , therefore we compare dp[r] with dp[l] + 1.
+                // now why dp[right + 1] ? bcz we know s[l....r] is a palind so min cuts till index r is dp[r + 1] , therefore we compare dp[r + 1] with dp[l] + 1.
                 
                 dp[right + 1] = min(dp[right + 1], dp[left] + 1);
                 left--;
