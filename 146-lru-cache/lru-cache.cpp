@@ -15,8 +15,8 @@ class LRUCache {
   node * head = new node(-1, -1);   // dummy head and tail nodes
   node * tail = new node(-1, -1);
 
-  int cap; // capacit of the cache
-  unordered_map < int, node * > m;
+  int cap; // capacity of the cache
+  unordered_map < int, node* > m;
 
   LRUCache(int capacity) {
     cap = capacity;
@@ -61,12 +61,12 @@ class LRUCache {
       deletenode(existingnode);
     }
 
-    if (m.size() == cap) {  // if cap is full , then erase the LRU 
+    if (m.size() == cap) {  // if not in cache and cap is full , then erase the LRU 
       m.erase(tail -> prev -> key);
       deletenode(tail -> prev);
     }
 
-    addnode(new node(key_, value));
+    addnode(new node(key_, value)); // add just after head since this is the most recent used
     m[key_] = head -> next;
   }
 };
