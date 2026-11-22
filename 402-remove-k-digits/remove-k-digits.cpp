@@ -3,6 +3,7 @@ public:
     string removeKdigits(string num, int k) {
         stack<char> st;
         int n = num.size();
+        if(k==n) return "0";
         //the idea is simple , get rid of the biggest digits going left to right
         for(int i =0;i<n;i++){
             while(!st.empty() && k>0 && (st.top()-'0')>(num[i]-'0')){ // maintain an inc order in the stack so we get rid of biger digits from left
