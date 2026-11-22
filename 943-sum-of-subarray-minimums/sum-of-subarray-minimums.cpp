@@ -3,7 +3,7 @@
 //     const int MOD = 1e9 + 7;
 //     vector<int> findNSE(vector<int>& arr){
 //         int n = arr.size();
-//         vector<int> nse(n);
+//         vector<int> nse(n);  // inc stack
 //         stack<int> st;
 //         for(int i = n-1;i>=0;i--){
 //             while(!st.empty() && arr[st.top()]>arr[i]){    //here we removed st.top()>= the equal to bcz then nse gives next smaller or equal to element to resolve the duplicate elements in arr edge case
@@ -17,7 +17,7 @@
 
 //     vector<int> findPSE(vector<int>& arr){
 //         int n = arr.size();
-//         vector<int> pse(n);
+//         vector<int> pse(n); // inc stack from left to right
 //         stack<int> st;
 //         for(int i = 0;i<n;i++){
 //             while(!st.empty() && arr[st.top()]>=arr[i]){  //notice the equal to which mean prev smaller or equal to , we do that bcz consider [1,1] at 0th index we consider subarr [1] , [1,1] and when we are at 1st index we consider [1] and [1,1] again if we didnt had this = here. so this equals to prevent from recounting same subarr with same min element.
@@ -55,7 +55,7 @@ public:
         stack<int> st;
         long long total = 0;
 
-        // Loop runs to n bcz say after loop runs till n - 1 , sm ele remains in stak , then we can say those doesnt have a nse ie nse for those is n , hence we go to n and flush those ele
+        // Loop runs to n bcz say after loop runs till n - 1 , sm ele remains in stack , then we can say those doesnt have a nse ie nse for those is n , hence we go to n and flush those ele
         for (int i = 0; i <= n; ++i) {
             
             while (!st.empty() && (i == n || arr[st.top()] >= arr[i])) {
