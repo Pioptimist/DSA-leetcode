@@ -1,6 +1,6 @@
 class StockSpanner {
 public:
-    stack<pair<int,int>> st; 
+    stack<pair<int,int>> st; // we are storing prices with their span bcz when the next stock comes , we pop the prev lower prices , hence we need to know their span if we want to calc the current stock's span
 
     StockSpanner() {
         while(!st.empty()) st.pop();  // ensure it's clean
