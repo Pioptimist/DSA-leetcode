@@ -5,13 +5,13 @@ public:
         int n = num.size();
         //the idea is simple , get rid of the biggest digits going left to right
         for(int i =0;i<n;i++){
-            while(!st.empty() && k>0 && (st.top()-'0')>(num[i]-'0')){
+            while(!st.empty() && k>0 && (st.top()-'0')>(num[i]-'0')){ // maintain an inc order in the stack so we get rid of biger digits from left
                 st.pop();
                 k--;
             }
             st.push(num[i]);
         }
-        while(k>0){  //means the number was smth like 123456 and in above we wont be able to pop so as we can see the las number will be the highest value , so pop them 
+        while(k>0){  //means the number rn in the stack is smth like 123456 and in above we wont be able to pop so as we can see the last number will be the highest value , so pop them 
             st.pop();
             k--;
         }
